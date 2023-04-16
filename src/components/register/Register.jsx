@@ -1,8 +1,12 @@
 import React, { useState } from 'react'
 import "./Register.css"
+import axios from "axios"
+import { useHistory } from "react-router-dom"
 
 export default function Register() {
 
+
+  const history = useHistory()
 
   const [user,setUser]= useState({
     name: "" ,
@@ -24,6 +28,19 @@ export default function Register() {
   }
 
 
+  const register = () => {
+    const { name, email, password, reEnterPassword } = user
+    if( name && email && password && (password === reEnterPassword)){
+        axios.post("http://localhost:9002/register", user)
+        .then( res => {
+            alert(res.data.message)
+            history.push("/login")
+        })
+    } else {
+        alert("invlid input")
+    }
+    
+}
 
 
 
@@ -40,9 +57,9 @@ export default function Register() {
             <input type="text" name='email' value={user.email} placeholder='Your Email'onChange={handleChange}  />
             <input type="password"name='password'  value={user.password} placeholder='Your Password' onChange={handleChange} />
             <input type="password"name='reEnterPassword' value={user.reEnterPassword}  placeholder='Re-enter Password' onChange={handleChange} />
-            <div className='button'>Register</div>
+            <div className='button' onClick={register} >Register</div>
             <div>Or</div>
-            <div className='button'>Login</div>
+            <div className='button' onClick={() => history.push("/login")} >Login</div>
         
         </div>
     

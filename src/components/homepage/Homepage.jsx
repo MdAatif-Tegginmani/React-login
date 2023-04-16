@@ -1,7 +1,7 @@
 import React from 'react'
 import './Homepage.css'
 
-export default function Homepage() {
+export default function Homepage({setLoginUser}) {
   return (
     <div className='home'>
 
@@ -10,7 +10,7 @@ export default function Homepage() {
         
         </div>
           <div>
-            <button className='btn-logout'>Logout</button>
+          <div className="btn-logut" onClick={() => setLoginUser({})} >Logout</div>
           </div>  
     
     
